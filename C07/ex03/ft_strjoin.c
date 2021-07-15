@@ -6,76 +6,75 @@
 /*   By: aniezgod <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 12:55:54 by aniezgod          #+#    #+#             */
-/*   Updated: 2021/07/14 23:19:28 by aniezgod         ###   ########.fr       */
+/*   Updated: 2021/07/15 16:10:28 by aniezgod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return(i);
-}
-
-char	*ft_strcat(char *dest, char *src)
+int	ft_strlen(char **str, char *sep, int size)
 {
 	int	i;
 	int	j;
+	int	size_strs;
+	int	size_sep;
 
 	i = 0;
-	j = 0;
-	while (dest[i])
+	size_strs = 0;
+	size_sep = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (str[i][j])
+		{
+			size_strs++;
+			j++;
+		}
 		i++;
+	}
+	i = 0;
+	while (sep[i])
+	{
+		size_sep++;
+		i++;
+	}
+	return (size_sep * (size - 1) + size_strs);
+}
+
+char	*ft_strcat(char *dest, char *src, int i)
+{
+	int	l;
+	int	j;
+
+	l = 0;
+	j = 0;
+	while (dest[l] && i != 0)
+		l++;
 	while (src[j])
 	{
-		dest[i] = src[j];
-		i++;
+		dest[l + j] = src[j];
 		j++;
 	}
-	dest[i] = '\0';
+	dest[l + j] = '\0';
 	return (dest);
 }
 
 char	*ft_strjoin(int size, char **strs, char *sep)
 {
-	int	i;
-	int size_all_strs;
-	int size_all_chaine;
-	char *chaine;
-	i = 0;
-	size_all_strs = 0;
+	int		i;
+	char	*chaine;
+
 	if (size <= 0)
 	{
-		chaine = malloc(sizeof(char));
+		chaine = malloc(0);
 		return (chaine);
 	}
-	while (i < size)
-	{
-		size_all_strs = size_all_strs + ft_strlen(strs[i]);
-		i++;
-	}
-	size_all_chaine = size_all_strs + ft_strlen(sep) * (size - 1);
-	chaine = malloc(sizeof(char) * size_all_chaine);
+	chaine = malloc(sizeof(char) * (ft_strlen(strs, sep, size) + 1));
 	i = 0;
 	while (i < size)
 	{
-		chaine = ft_strcat(chaine, strs[i]);
-		while (i < size - 1)
-			chaine = ft_strcat(chaine, sep);
+		chaine = ft_strcat(chaine, strs[i], i);
 		i++;
+		if (i < size)
+			chaine = ft_strcat(chaine, sep, i);
 	}
-	return(chaine);
-}
-
-#include <stdio.h>
-
-char *ft_strjoin(int size, char **strs, char *sep);
-
-int	main(int argc, char **argv)
-{
-	printf("./ex03/output___said___this___is___a___success :\n");
-	printf("%s\n",  ft_strjoin(argc, argv, "___"));
+	return (chaine);
 }

@@ -5,28 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aniezgod <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/13 12:37:09 by aniezgod          #+#    #+#             */
-/*   Updated: 2021/07/13 19:35:01 by aniezgod         ###   ########.fr       */
+/*   Created: 2021/07/21 15:27:22 by aniezgod          #+#    #+#             */
+/*   Updated: 2021/07/21 15:31:31 by aniezgod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 
+#include <stdlib.h>
 int	*ft_range(int min, int max)
 {
 	int	*tab;
 	int	i;
 	int	j;
+	int	diff;
 
-	i = 0;
-	j = max - min;
 	if (min >= max)
 		return (NULL);
-	tab = malloc(j * sizeof(int));
-	if (tab == 0)
-		return (NULL);
-	while (i <= max)
+	diff = max - min;
+	i = 0;
+	j = min;
+	tab = malloc(sizeof(int) * diff + 1);
+	if (tab == NULL)
+		return (0);
+	while (i < diff)
 	{
-		tab[i] = min + i;
+		tab[i] = j;
+		j++;
 		i++;
 	}
 	return (tab);

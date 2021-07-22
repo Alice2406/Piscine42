@@ -5,11 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aniezgod <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/14 12:55:54 by aniezgod          #+#    #+#             */
-/*   Updated: 2021/07/15 16:10:28 by aniezgod         ###   ########.fr       */
+/*   Created: 2021/07/22 12:52:16 by aniezgod          #+#    #+#             */
+/*   Updated: 2021/07/22 12:52:18 by aniezgod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <stdlib.h>
+
 int	ft_strlen(char **str, char *sep, int size)
 {
 	int	i;
@@ -68,7 +70,10 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 		return (chaine);
 	}
 	chaine = malloc(sizeof(char) * (ft_strlen(strs, sep, size) + 1));
+	if (!chaine)
+		return (NULL);
 	i = 0;
+	chaine[0] = '\0';
 	while (i < size)
 	{
 		chaine = ft_strcat(chaine, strs[i], i);

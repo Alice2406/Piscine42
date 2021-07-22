@@ -5,38 +5,34 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aniezgod <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/07/19 21:29:30 by aniezgod          #+#    #+#              #
-#    Updated: 2021/07/19 22:57:05 by aniezgod         ###   ########.fr        #
+#    Created: 2021/07/22 23:23:29 by aniezgod          #+#    #+#              #
+#    Updated: 2021/07/22 23:23:48 by aniezgod         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= ${wildcard ./SRCS/*.c}
-OBJS		= ${SRCS:.c=.o}
+NAME	=	libft.a
 
-INCS		= includes
+SRCS	=	srcs/ft_putchar.c srcs/ft_swap.c srcs/ft_putstr.c srcs/ft_strlen.c srcs/ft_strcmp.c
 
-NAME		= 
+OBJS	=	${SRCS:.c=.o}
 
-CC			= gcc
+CC		=	gcc
 
-RM			= rm -f
+RM		=	rm -f
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 
-.c.o :
-			${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I ${INCS}
+.c.o:
+		${CC} ${CFLAGS} -c -I./includes $< -o ${<:.c=.o}
 
-${NAME} : ${OBJS}
-			${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+all:	${NAME}
 
-all : ${NAME}
+${NAME}:	${OBJS}
+			ar -rcs ${NAME} ${OBJS}
 
-clean :
-		${RM} ${OBJS}
+clean:	${RM} ${OBJS}
 
-fclean : clean
+fclean:	clean
 		${RM} ${NAME}
 
-re :	fclean all
-
-.PHONY: all clean fclean re
+re:		fclean all
